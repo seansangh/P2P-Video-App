@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link id="favicon" rel="icon" href="https://cdn.glitch.com/78f0cb45-8c12-4c4b-9473-fb4bc33586a2%2Fcamera-2766307_1280.png?1555540005633" type="image/x-icon">  
+  <link rel="stylesheet" href="scripts/semantic-ui-css/semantic.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="scripts/semantic-ui-css/semantic.min.css">  
+    <link rel="stylesheet" href="/style.css">
+    <script src="/client.js" defer></script>
+    <script src="/app.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      $(document).ready(function(){
+        if("<%=p2%>" != ""){
+                    
+          var socket= io.connect();
+          
+          socket.emit('room', {name:"<%=p2%>"})
+          
+          socket.on('plus', function(data){
+            document.getElementById('so').textContent= data;
+          })
+          
+          socket.on('minus', function(data){
+            document.getElementById('so').textContent= data;
+          })
+          
+          socket.on('leave', function(data){
+            window.location.href='/';
+          })
+
+          
+        }
+      })
+    </script>
+  <script>
+    if('<%= message%>'=='no'){
+      alert('The Room Is Full!')
+    }
+  </script>
+  <script>
+    $(document).ready(function(){
+
+    })
+  </script>
+  <title>P2P Messaging App</title>
+  <style>
+    html { margin-top: 20px; }
+    #chat-content { height: 180px;  overflow-y: scroll; }
+  </style>
+</head>
+<body>
+<div id="no" style="display:none;">0<%=count%></div>
+<div id="no2" style="display:none;"><%=bt %></div>
+<div id="no3" style="display:none;"><%=p1 %></div>
+<div id="no4" style="display:none;"><%=p2 %></div>
+
+    <main>   
+     <div class="top">
+      <div class="container">
+        <p>
+          P2P Video Chat and Messaging App  
+        </p>
+      </div>
+     </div>        
+      
+      <div class="middle">
+       <div class="container">
+        <div class="col-md-8" id="inp">
+          <div id="fairst">
+            <% if(p1 ==""){ %>
+          <div class="form">
+            <form method="POST">
+            <div class="fields">
+              
+              <div class="b1">
+                <div class="col-md-4">
+                  <div class="field">
+                    <p>User Name</p>
+                    <input type="text" name="t1" id="t1" placeholder="Enter User Name...." value="<%=p1%>" required>
+                  </div>  
+                </div>  
+                <div class="col-md-8">
+                  <div class="field">            
+                    <p id="rN">Room Name</p>
+                    <input type="text" name="t2" id="t2" placeholder="Enter Room Name...." value="<%=p2%>" required>
+                  </div>  
+                </div>
+              </div>
+            
+            </div>
+
+            <div class="sub buttons">
+              <button id="b2" name="b2" value="b2" class="scu ui submit">Create Room</button>
+              <button id="b3" name="b2" value="b3" class="scu ui submit">Join Room</button>
+              <p id="or">OR</p>
+            </div>
+          </form>
+
+          </div>
+ 
+          <% } %>  
+          </div>
+          <div id="saecond">
+ 
+            
+          </div>
+              
+          
+         <!-- Chat Room Messages -->
+          <div id="chat"></div>  
+          
+        </div>
+        <div class="col-md-4 col4">
+          <!-- Local Camera -->
+      <div class="ui six wide column">
+        <img id="iMm" class="responsive im gim ui image" src="https://cdn.glitch.com/e692c11c-a7f3-42f1-bd8c-4df7a6b9f180%2Fcamera-2766307_1280.png?1555320322612">
+        <video id="vid" class="ui large image"  autoplay></video>
+        <h4 class="ui center aligned header" style="margin:0;">
+          Local Camera
+        </h4>
+      </div>        
+        
+        </div>
+
+        
+      </div>
+     </div>      
+         
+
+   <div class="bottom">
+     <div class="container">  
+
+    <!-- Remote Cameras -->
+      <p>Remote Cameras</p>
+      <div id="remote-videos" class="ui stackable grid">
+       <div class="col3 three wide column">
+          <img class="ui centered medium image responsive im" src="https://cdn.glitch.com/78f0cb45-8c12-4c4b-9473-fb4bc33586a2%2Fcamera-2766307_1280.png?1555540005633" style="width:100%">          
+        </div> 
+        
+        <div class="col3 three wide column">
+          <img class="ui centered medium image responsive im" src="https://cdn.glitch.com/78f0cb45-8c12-4c4b-9473-fb4bc33586a2%2Fcamera-2766307_1280.png?1555540005633" style="width:100%">          
+        </div>         
+        
+        <div class="col3 three wide column">
+          <img class="ui centered medium image responsive im" src="https://cdn.glitch.com/78f0cb45-8c12-4c4b-9473-fb4bc33586a2%2Fcamera-2766307_1280.png?1555540005633" style="width:100%">          
+        </div>         
+        
+        <div class="col3 three wide column">
+          <img class="ui centered medium image responsive im" src="https://cdn.glitch.com/78f0cb45-8c12-4c4b-9473-fb4bc33586a2%2Fcamera-2766307_1280.png?1555540005633" style="width:100%">          
+        </div> 
+      </div>
+      
+     </div>
+   </div>
+      
+
+
+  <!-- TEMPLATES -->
+  <!-- Remote Video Template -->
+  <script id="remote-video-template" type="text/x-handlebars-template">
+    <div id="{{ id }}" class="four wide column">
+      <img class="ui centered medium image responsive im" src="https://cdn.glitch.com/78f0cb45-8c12-4c4b-9473-fb4bc33586a2%2Fcamera-2766307_1280.png?1555540005633">
+    </div>
+  </script>
+      
+            
+  <!-- Chat Content Template -->
+  <script id="chat-content-template" type="text/x-handlebars-template">
+   {{#each messages}}
+    <div class="event">
+      <div class="col-xs-12 imm">
+        <div class="col-xs-1 im1">
+      <div class="label">
+        <i class="icon blue user"></i>
+      </div>
+        </div>
+        <div class="col-xs-11 im2">
+      <div class="content">
+        <div class="summary">
+          <p>
+            <a>{{ username }}</a> <wo>posted on</wo> <im2>{{ postedOn }}</im2>
+          </p>
+
+        </div>
+        <div class="extra text">
+          {{ message }}
+        </div>
+      </div>
+      
+        </div>
+      </div>
+    
+    </div>
+  {{/each}}
+  </script>
+
+
+  <!-- Chat Template -->
+  <script id="chat-template" type="text/x-handlebars-template">
+   <div class="tM">
+     <h3 class="ui header" style="color:#f3c718">Room Name: <strong>{{ room }}</strong></h3>
+     <p id="rom">
+       User Count: <so id="so">0</so>
+     </p>
+   </div>
+    
+    <div id="chat-content" class="ui feed iM"> </div>
+    
+    <div id="pM">
+    <div class="ui form">
+      <div class="ui field">
+        <label>Post Message</label>
+        <textarea id="post-message" name="post-message" rows="1"></textarea>
+      </div>
+      <div id="post-btn" class="ui primary submit button send2">Send</div>
+    </div>
+    </div>
+  </script>
+
+  <!-- Scripts -->
+  <script src="scripts/jquery/dist/jquery.min.js"></script>
+  <script src="scripts/semantic-ui-css/semantic.min.js"></script>
+  <script src="scripts/handlebars/dist/handlebars.min.js "></script>
+  <script src="scripts/simplewebrtc/out/simplewebrtc-with-adapter.bundle.js"></script>
+  <script src="js/app.js"></script>
+  
+          
+  </main>
+</body>
+</html>
